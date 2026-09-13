@@ -250,20 +250,6 @@ Both Login (`/login`) and Registration (`/register`) pages include **1-Click "Qu
 
 ---
 
-## 🎓 College Project Viva Notes
-
-### Q1: Why did you choose React + Vite instead of a traditional multi-page template?
-> **Answer**: React with Vite enables a lightning-fast Single Page Application (SPA) architecture with instant client-side transitions, component modularity, and hot module replacement (HMR). State synchronization across Cart, Wishlist, and Notifications occurs seamlessly without full-page reloads.
-
-### Q2: How is transaction safety and inventory consistency maintained during checkout?
-> **Answer**: Checkout utilizes Django's `with transaction.atomic():` block. Before creating an order, the system locks product rows, checks available batch quantities, decrements stock atomically, and clears the user's cart. If any product has insufficient stock or a step fails, the entire transaction rolls back cleanly.
-
-### Q3: How does the Super Admin approval mechanism work?
-> **Answer**: Standard registration defaults all self-registered users to `role = 'customer'`. When a user requests the Administrator role, their `admin_status` is marked as `'pending'` and `is_staff` remains `False`. Only the hard-designated Super Admin (`admin@cocoabliss.com`) can invoke the approval API endpoint to elevate the user to `role = 'admin'` and `is_staff = True`.
-
-### Q4: How is database portability achieved between development and production?
-> **Answer**: The backend settings read `DB_ENGINE` from `.env`. If set to `mysql`, PyMySQL connects to a production MySQL server. If left on `sqlite3`, Django automatically falls back to a zero-configuration SQLite database, allowing the project to run immediately on any evaluator's computer without installing a database server.
-
 ---
 
 ## 📄 License
