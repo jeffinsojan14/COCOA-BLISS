@@ -16,7 +16,7 @@
 **"Homemade Chocolates, Made with Love."**  
 *A complete, production-quality, full-stack e-commerce web platform for a dedicated handcrafted chocolate brand.*
 
-[Features](#-key-features) • [Tech Stack](#-technology-stack) • [Super Admin Workflow](#-super-admin-approval-workflow) • [Quick Start](#-quick-start-guide) • [API Documentation](#-api-endpoints) • [College Viva Q&A](#-college-project-viva-notes)
+[Features](#-key-features) • [Tech Stack](#-technology-stack) • [Super Admin Workflow](#-super-admin-approval-workflow) • [Quick Start](#-quick-start-guide) • [API Documentation](#-api-endpoints)
 
 </div>
 
