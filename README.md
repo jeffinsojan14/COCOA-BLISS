@@ -131,14 +131,24 @@ COCOA BLISS/
 
 ## 🚀 Quick Start Guide
 
-### Option 1: 1-Click Launchers (Windows)
-1. **Start Backend**: Double-click `run_backend.bat` (runs on `http://127.0.0.1:8000/`)
-2. **Start Frontend**: Double-click `run_frontend.bat` (runs on `http://127.0.0.1:5173/`)
+### Option 1: Unified Single-Terminal Launcher (Backend + Frontend Together)
+Run both the Django backend and Vite frontend concurrently in the **exact same terminal**:
+* **1-Click Batch**: Double-click or run [`run_all.bat`](file:///d:/PROJECTS/COCOA%20BLISS/run_all.bat)
+* **Python Command**: Run `python run.py` (or `py run.py`)
+* **NPM Command**: Run `npm run dev` from the project root
+
+Both servers stream live logs with colored `[BACKEND]` and `[FRONTEND]` tags. Press `Ctrl+C` to terminate both servers cleanly.
+
+---
+
+### Option 2: Separate 1-Click Launchers (Windows)
+1. **Start Backend**: Double-click [`run_backend.bat`](file:///d:/PROJECTS/COCOA%20BLISS/run_backend.bat) (runs on `http://127.0.0.1:8000/`)
+2. **Start Frontend**: Double-click [`run_frontend.bat`](file:///d:/PROJECTS/COCOA%20BLISS/run_frontend.bat) (runs on `http://127.0.0.1:5173/`)
 3. Open your browser at **`http://localhost:5173/`**
 
 ---
 
-### Option 2: Manual Terminal Setup (macOS / Linux / Windows)
+### Option 3: Manual Terminal Setup (macOS / Linux / Windows)
 
 #### 1. Clone the Repository
 ```bash

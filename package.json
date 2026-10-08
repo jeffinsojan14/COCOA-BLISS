@@ -1,0 +1,13 @@
+{
+  "name": "cocoa-bliss-app",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cocoa Bliss Full-Stack Homemade Chocolate E-Commerce Platform",
+  "scripts": {
+    "dev": "python run.py",
+    "start": "python run.py",
+    "backend": "run_backend.bat",
+    "frontend": "run_frontend.bat",
+    "seed": "seed_database.bat"
+  }
+}
