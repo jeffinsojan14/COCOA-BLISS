@@ -21,8 +21,16 @@ class Category(models.Model):
         super().save(*args, **kwargs)
 
     def get_image(self):
+        if self.image_url and self.image_url.strip():
+            url = self.image_url.strip()
+            # If accidentally pasted a search page URL, fallback to local image if available
+            if '/search/' not in url.lower():
+                return url
         if self.image:
-            return self.image.url
+            try:
+                return self.image.url
+            except Exception:
+                pass
         return self.image_url or '/placeholder-chocolate.jpg'
 
     def __str__(self):
@@ -61,8 +69,15 @@ class Product(models.Model):
         super().save(*args, **kwargs)
 
     def get_image(self):
+        if self.image_url and self.image_url.strip():
+            url = self.image_url.strip()
+            if '/search/' not in url.lower():
+                return url
         if self.image:
-            return self.image.url
+            try:
+                return self.image.url
+            except Exception:
+                pass
         return self.image_url or '/placeholder-chocolate.jpg'
 
     def update_rating(self):

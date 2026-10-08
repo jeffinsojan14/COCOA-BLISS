@@ -207,15 +207,39 @@ export const AdminCategoriesPage: React.FC = () => {
                 />
               </div>
 
-              <div className="space-y-1">
+              <div className="space-y-2">
                 <label className="font-semibold text-cocoa-900 block">Cover Image URL *</label>
-                <input
-                  type="url"
-                  value={formData.image_url}
-                  onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                  placeholder="https://images.unsplash.com/..."
-                  className="w-full px-3 py-2 bg-cocoa-50/50 border border-cocoa-200 rounded-xl focus:outline-none focus:border-cocoa-950"
-                />
+                <div className="flex gap-3 items-start">
+                  <div className="flex-1">
+                    <input
+                      type="url"
+                      value={formData.image_url}
+                      onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                      placeholder="https://images.unsplash.com/... or https://cdn.pixabay.com/..."
+                      className="w-full px-3 py-2 bg-cocoa-50/50 border border-cocoa-200 rounded-xl focus:outline-none focus:border-cocoa-950"
+                    />
+                    <p className="text-[11px] text-cocoa-500 mt-1">
+                      Direct image link. Right-click the image online and click <strong>"Copy Image Address"</strong>.
+                    </p>
+                    {formData.image_url.includes('/search/') && (
+                      <p className="text-[11px] text-amber-700 font-medium mt-1 bg-amber-50 p-1.5 rounded-lg border border-amber-200">
+                        ⚠️ This link is a search results page, not a direct image file. Please copy the image's address directly.
+                      </p>
+                    )}
+                  </div>
+                  {formData.image_url && (
+                    <div className="w-16 h-16 rounded-xl border border-cocoa-200 overflow-hidden shrink-0 bg-cocoa-50 flex flex-col items-center justify-center">
+                      <img
+                        src={formData.image_url}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = '/placeholder-chocolate.jpg';
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="pt-2">
