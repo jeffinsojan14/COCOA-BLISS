@@ -1,0 +1,129 @@
+# ==============================================================================
+# Cocoa Bliss — Git Ignore Configuration for GitHub
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Environment Variables & Secrets (Keep your credentials safe!)
+# ------------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.env
+backend/.env
+frontend/.env
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+
+# ------------------------------------------------------------------------------
+# Python & Django
+# ------------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+backend_env/
+.venv/
+
+# Django local database & static collections
+*.sqlite3
+db.sqlite3
+backend/db.sqlite3
+backend/staticfiles/
+staticfiles/
+*.log
+local_settings.py
+db.sqlite3-journal
+
+# ------------------------------------------------------------------------------
+# Node.js, Vite & Frontend
+# ------------------------------------------------------------------------------
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# ------------------------------------------------------------------------------
+# Testing, Type Checking & Caches
+# ------------------------------------------------------------------------------
+.pytest_cache/
+.mypy_cache/
+.pytype/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# ------------------------------------------------------------------------------
+# Operating System & IDE Files
+# ------------------------------------------------------------------------------
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+
+# IDEs & Editors
+.idea/
+*.sublime-project
+*.sublime-workspace
+.history/
+*.code-workspace
+.project
+.pydevproject
+.settings/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json

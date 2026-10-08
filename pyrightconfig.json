@@ -1,0 +1,18 @@
+{
+  "venvPath": "D:/PROJECTS/COCOA BLISS",
+  "venv": "backend_env",
+  "extraPaths": [
+    "D:/PROJECTS/COCOA BLISS/backend",
+    "backend",
+    "."
+  ],
+  "typeCheckingMode": "off",
+  "reportMissingImports": "none",
+  "reportMissingTypeStubs": "none",
+  "reportAttributeAccessIssue": "none",
+  "reportIncompatibleMethodOverride": "none",
+  "reportOperatorIssue": "none",
+  "reportOptionalSubscript": "none",
+  "reportArgumentType": "none",
+  "reportCallIssue": "none"
+}

@@ -1,0 +1,27 @@
+{
+  "python.defaultInterpreterPath": "d:\\PROJECTS\\COCOA BLISS\\backend_env\\Scripts\\python.exe",
+  "python.analysis.diagnosticsSource": "Pylance",
+  "python.analysis.typeCheckingMode": "off",
+  "python.analysis.diagnosticSeverityOverrides": {
+    "reportMissingImports": "none",
+    "reportMissingTypeStubs": "none",
+    "reportAttributeAccessIssue": "none",
+    "reportOptionalSubscript": "none",
+    "reportArgumentType": "none",
+    "reportIncompatibleMethodOverride": "none",
+    "reportOperatorIssue": "none",
+    "reportCallIssue": "none"
+  },
+  "python.autoComplete.extraPaths": [
+    "d:\\PROJECTS\\COCOA BLISS\\backend",
+    "d:\\PROJECTS\\COCOA BLISS\\backend_env\\Lib\\site-packages",
+    "C:\\Users\\hp\\AppData\\Local\\Python\\pythoncore-3.14-64\\Lib\\site-packages"
+  ],
+  "python.analysis.extraPaths": [
+    "d:\\PROJECTS\\COCOA BLISS\\backend",
+    "d:\\PROJECTS\\COCOA BLISS\\backend_env\\Lib\\site-packages",
+    "C:\\Users\\hp\\AppData\\Local\\Python\\pythoncore-3.14-64\\Lib\\site-packages"
+  ],
+  "python.envFile": "${workspaceFolder}/.env",
+  "typescript.tsdk": "d:\\PROJECTS\\COCOA BLISS\\frontend\\node_modules\\typescript\\lib"
+}
