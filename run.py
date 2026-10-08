@@ -15,10 +15,17 @@ import subprocess
 import threading
 import time
 
-# Ensure UTF-8 output
+# Ensure UTF-8 output and ANSI colors on Windows
 if sys.platform == "win32":
-    # Enable ANSI escape sequences on Windows
-    os.system("")
+    try:
+        import ctypes
+        kernel32 = ctypes.windll.kernel32
+        handle = kernel32.GetStdHandle(-11)
+        mode = ctypes.c_ulong()
+        if kernel32.GetConsoleMode(handle, ctypes.byref(mode)):
+            kernel32.SetConsoleMode(handle, mode.value | 0x0004)
+    except Exception:
+        subprocess.run("", shell=True, check=False)
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     if hasattr(sys.stderr, "reconfigure"):

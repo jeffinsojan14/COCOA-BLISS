@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from django.utils.text import slugify
 from django.conf import settings
@@ -65,7 +66,7 @@ class Product(models.Model):
             self.slug = slugify(self.name)
         # Update is_available based on stock_quantity
         if self.stock_quantity == 0:
-            self.is_available = False
+            setattr(self, 'is_available', False)
         super().save(*args, **kwargs)
 
     def get_image(self):
@@ -84,11 +85,11 @@ class Product(models.Model):
         reviews = self.reviews.all()
         if reviews.exists():
             avg = sum(r.rating for r in reviews) / reviews.count()
-            self.rating = round(avg, 1)
-            self.review_count = reviews.count()
+            setattr(self, 'rating', Decimal(str(round(avg, 1))))
+            setattr(self, 'review_count', int(reviews.count()))
         else:
-            self.rating = 5.0
-            self.review_count = 0
+            setattr(self, 'rating', Decimal('5.0'))
+            setattr(self, 'review_count', 0)
         self.save(update_fields=['rating', 'review_count'])
 
     def __str__(self):
