@@ -13,7 +13,7 @@
     "types": [
       "vite/client"
     ],
-o
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
