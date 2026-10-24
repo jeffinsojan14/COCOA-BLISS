@@ -38,6 +38,12 @@ export default {
         serif: ['"Playfair Display"', 'Georgia', 'serif'],
         sans: ['"Plus Jakarta Sans"', '"Inter"', 'system-ui', 'sans-serif'],
       },
+      aspectRatio: {
+        '4/3': '4 / 3',
+        '16/10': '16 / 10',
+        '16/9': '16 / 9',
+        square: '1 / 1',
+      },
     },
   },
   plugins: [],

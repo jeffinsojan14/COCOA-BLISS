@@ -44,7 +44,7 @@ export const CategoriesPage: React.FC = () => {
               to={`/shop?category=${cat.slug}`}
               className="group bg-white rounded-3xl border border-[#ebdccd] overflow-hidden shadow-xs hover:shadow-xl hover:border-caramel-400 transition-all duration-300 flex flex-col"
             >
-              <div className="relative aspect-16/10 bg-cocoa-50 overflow-hidden">
+              <div className="relative aspect-[16/10] bg-cocoa-50 overflow-hidden">
                 <img
                   src={cat.display_image || cat.image_url || '/placeholder-chocolate.jpg'}
                   alt={cat.name}

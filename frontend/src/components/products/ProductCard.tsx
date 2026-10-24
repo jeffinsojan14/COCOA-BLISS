@@ -60,8 +60,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const isOutOfStock = !product.is_available || product.stock_quantity <= 0;
 
   return (
-    <div className="group bg-white rounded-2xl border border-[#ebdccd] hover:border-caramel-300 hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden relative">
-      <Link to={`/products/${product.id}`} className="relative block overflow-hidden bg-cocoa-50/50 aspect-4/3">
+    <div className="group bg-white rounded-2xl border border-[#ebdccd] hover:border-caramel-300 hover:shadow-xl transition-all duration-300 flex flex-col h-full overflow-hidden relative">
+      <Link to={`/products/${product.id}`} className="relative block w-full aspect-square overflow-hidden bg-cocoa-50/50 shrink-0">
         <img
           src={product.display_image || product.image_url || '/placeholder-chocolate.jpg'}
           alt={product.name}
@@ -98,14 +98,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </button>
       </Link>
 
-      <div className="p-4 sm:p-5 flex flex-col flex-grow justify-between">
+      <div className="p-3.5 sm:p-4 flex flex-col flex-1 justify-between">
         <div>
           <Link to={`/products/${product.id}`}>
-            <h3 className="font-serif font-bold text-base text-cocoa-950 group-hover:text-caramel-700 transition-colors line-clamp-1">
+            <h3
+              className="font-serif font-bold text-sm sm:text-base text-cocoa-950 group-hover:text-caramel-700 transition-colors line-clamp-2 min-h-[2.5rem] leading-snug"
+              title={product.name}
+            >
               {product.name}
             </h3>
           </Link>
-          <p className="text-xs text-cocoa-500 mt-0.5">{product.weight}</p>
+          <p className="text-[11px] sm:text-xs text-cocoa-500 mt-0.5">{product.weight}</p>
           <div className="mt-2 flex items-center gap-1.5">
             <RatingStars
               rating={typeof product.rating === 'string' ? parseFloat(product.rating) : product.rating}
@@ -115,7 +118,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             />
           </div>
           <div className="mt-2.5 flex items-baseline gap-2">
-            <span className="text-lg font-bold text-cocoa-950 font-sans">₹{price}</span>
+            <span className="text-base sm:text-lg font-bold text-cocoa-950 font-sans">₹{price}</span>
             {product.original_price && (
               <span className="text-xs text-cocoa-400 line-through">₹{product.original_price}</span>
             )}

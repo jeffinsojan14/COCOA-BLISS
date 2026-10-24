@@ -80,7 +80,7 @@ export const WishlistPage: React.FC = () => {
               className="bg-white rounded-2xl border border-[#ebdccd] overflow-hidden flex flex-col justify-between shadow-xs hover:shadow-md transition-shadow"
             >
               <div>
-                <div className="relative aspect-4/3 bg-cocoa-50 overflow-hidden">
+                <div className="relative aspect-square bg-cocoa-50 overflow-hidden">
                   <img
                     src={product?.display_image || product?.image_url || '/placeholder-chocolate.jpg'}
                     alt={product?.name || 'Chocolate'}

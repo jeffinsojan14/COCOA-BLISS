@@ -246,13 +246,19 @@ export const HomePage: React.FC = () => {
             </div>
             <div className="flex justify-center">
               <img
-                src="/products/premium-gift-box.jpg"
-                alt="Celebration Chocolate Box"
+                src={
+                  categories.find((c) => c.slug === 'gift-boxes')?.display_image ||
+                  categories.find((c) => c.slug === 'gift-boxes')?.image_url ||
+                  bestsellers.find((p) => p.category_slug === 'gift-boxes')?.display_image ||
+                  bestsellers.find((p) => p.category_slug === 'gift-boxes')?.image_url ||
+                  'https://ruchoks.com/cdn/shop/files/BR006_E.jpg?v=1756196598&width=1100'
+                }
+                alt="Celebration Chocolate Gift Box"
                 className="rounded-2xl shadow-2xl border border-white/20 max-h-72 object-cover"
                 onError={(e) => {
                   const target = e.currentTarget;
-                  if (!target.src.includes('unsplash')) {
-                    target.src = 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?auto=format&fit=crop&w=700&q=80';
+                  if (!target.src.includes('ruchoks.com')) {
+                    target.src = 'https://ruchoks.com/cdn/shop/files/BR006_E.jpg?v=1756196598&width=1100';
                   }
                 }}
               />

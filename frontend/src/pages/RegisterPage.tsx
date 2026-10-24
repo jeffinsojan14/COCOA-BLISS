@@ -210,23 +210,6 @@ export const RegisterPage: React.FC = () => {
     }
   };
 
-  const handleFillDemo = () => {
-    const demoEmail = `chocolover_${Math.floor(1000 + Math.random() * 9000)}@gmail.com`;
-    setFormData({
-      full_name: 'Priya Sharma',
-      email: demoEmail,
-      phone: '+919876543210',
-      address: '12 Garden Street, Bengaluru, Karnataka 560001',
-      password: 'Password@123',
-      confirm_password: 'Password@123',
-      role: 'customer',
-    });
-    setFieldErrors({});
-    setTouched({});
-    setAgreeTerms(true);
-    setError(null);
-  };
-
   return (
     <div className="min-h-[calc(100vh-140px)] flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-[#fdfbf7]">
       <div className="w-full max-w-5xl bg-white rounded-3xl border border-[#ebdccd] shadow-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12">
@@ -282,7 +265,7 @@ export const RegisterPage: React.FC = () => {
                 <span>Register</span>
                 <span className="text-amber-500 text-xl">💛</span>
               </h3>
-              <p className="text-xs text-cocoa-500">Create a new account with your Google Gmail credentials.</p>
+              <p className="text-xs text-cocoa-500">Create a new account with your email and details.</p>
             </div>
 
             {error && (
@@ -562,21 +545,6 @@ export const RegisterPage: React.FC = () => {
                 {isLoading ? 'Validating & Creating Account...' : 'Register'}
               </button>
             </form>
-
-            <div className="relative flex items-center justify-center py-0.5">
-              <div className="border-t border-cocoa-200 w-full" />
-              <span className="bg-white px-3 text-[11px] font-semibold text-cocoa-400 uppercase tracking-widest absolute">
-                OR
-              </span>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleFillDemo}
-              className="w-full py-2.5 px-4 bg-white border border-cocoa-200 rounded-xl text-xs font-semibold text-cocoa-800 hover:bg-cocoa-50 transition-colors flex items-center justify-center gap-2.5 shadow-2xs cursor-pointer"
-            >
-              <span>⚡ Auto-fill Valid Demo Details</span>
-            </button>
 
             <p className="text-center text-xs text-cocoa-600">
               Already have an account?{' '}
