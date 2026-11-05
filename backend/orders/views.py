@@ -37,12 +37,12 @@ class OrderListCreateView(APIView):
         if not cart or not cart.items.exists():
             return Response({"error": "Your cart is empty. Please add chocolates to checkout."}, status=status.HTTP_400_BAD_REQUEST)
 
-        cart_items = cart.items.select_related('product').all()
+        cart_items = list(cart.items.select_related('product').all())
 
         with transaction.atomic():
-            # Validate stock availability for each item
+            # Validate stock availability for each item with fresh DB lock
             for item in cart_items:
-                product = item.product
+                product = Product.objects.select_for_update().get(id=item.product_id)
                 if not product.is_available or product.stock_quantity < item.quantity:
                     return Response({
                         "error": f"Sorry! '{product.name}' only has {product.stock_quantity} in stock. Please adjust your cart quantity."
@@ -72,12 +72,13 @@ class OrderListCreateView(APIView):
                 payment_method=payment_method,
                 payment_status=payment_status,
                 order_status='pending',
-                notes=serializer.validated_data.get('notes', '')
+                notes=serializer.validated_data.get('notes', ''),
+                delivery_instructions=serializer.validated_data.get('delivery_instructions', '')
             )
 
             # Create Order Items and adjust stock
             for item in cart_items:
-                product = item.product
+                product = Product.objects.select_for_update().get(id=item.product_id)
                 OrderItem.objects.create(
                     order=order,
                     product=product,
@@ -88,7 +89,7 @@ class OrderListCreateView(APIView):
                     quantity=item.quantity,
                     subtotal=item.subtotal
                 )
-                # Decrement stock
+                # Decrement stock and update availability
                 product.stock_quantity = max(0, product.stock_quantity - item.quantity)
                 if product.stock_quantity == 0:
                     product.is_available = False
@@ -169,11 +170,12 @@ class OrderCancelView(APIView):
             order.save()
 
             # Restore inventory stock
-            for item in order.items.all():
+            for item in order.items.select_related('product').all():
                 if item.product:
-                    item.product.stock_quantity += item.quantity
-                    item.product.is_available = True
-                    item.product.save()
+                    product = Product.objects.select_for_update().get(id=item.product_id)
+                    product.stock_quantity += item.quantity
+                    product.is_available = True
+                    product.save()
 
             Notification.objects.create(
                 user=order.user,
@@ -235,10 +237,37 @@ class AdminOrderStatusUpdateView(APIView):
         if not new_status or new_status not in dict(Order.STATUS_CHOICES):
             return Response({"error": f"Invalid status '{new_status}'."}, status=status.HTTP_400_BAD_REQUEST)
 
-        order.order_status = new_status
-        if new_status == 'delivered':
-            order.payment_status = 'completed'
-        order.save()
+        old_status = order.order_status
+        if old_status == new_status:
+            return Response({
+                "message": f"Order status is already {new_status}.",
+                "order": OrderSerializer(order).data
+            })
+
+        with transaction.atomic():
+            order.order_status = new_status
+            if new_status == 'delivered':
+                order.payment_status = 'completed'
+            order.save()
+
+            # If cancelling an active order, restore inventory stock
+            if new_status == 'cancelled' and old_status != 'cancelled':
+                for item in order.items.select_related('product').all():
+                    if item.product:
+                        product = Product.objects.select_for_update().get(id=item.product_id)
+                        product.stock_quantity += item.quantity
+                        product.is_available = True
+                        product.save()
+
+            # If un-cancelling a cancelled order, re-decrement stock
+            elif old_status == 'cancelled' and new_status != 'cancelled':
+                for item in order.items.select_related('product').all():
+                    if item.product:
+                        product = Product.objects.select_for_update().get(id=item.product_id)
+                        product.stock_quantity = max(0, product.stock_quantity - item.quantity)
+                        if product.stock_quantity == 0:
+                            product.is_available = False
+                        product.save()
 
         # Notify customer
         status_titles = {

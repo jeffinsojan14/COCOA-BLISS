@@ -156,6 +156,7 @@ export const orderService = {
     postal_code: string;
     payment_method: string;
     notes?: string;
+    delivery_instructions?: string;
   }): Promise<{ message: string; order: Order }> => {
     const res = await api.post('/orders/', data);
     return res.data;

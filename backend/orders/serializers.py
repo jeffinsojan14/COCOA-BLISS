@@ -23,7 +23,7 @@ class OrderSerializer(serializers.ModelSerializer):
             'subtotal', 'delivery_charge', 'total_amount',
             'payment_method', 'payment_method_display',
             'payment_status', 'order_status', 'status_display',
-            'notes', 'items', 'created_at', 'updated_at'
+            'notes', 'delivery_instructions', 'items', 'created_at', 'updated_at'
         ]
         read_only_fields = [
             'id', 'order_number', 'subtotal', 'delivery_charge', 'total_amount',
@@ -40,3 +40,4 @@ class CreateOrderSerializer(serializers.Serializer):
     postal_code = serializers.CharField(max_length=20)
     payment_method = serializers.ChoiceField(choices=Order.PAYMENT_METHOD_CHOICES, default='cod')
     notes = serializers.CharField(required=False, allow_blank=True)
+    delivery_instructions = serializers.CharField(required=False, allow_blank=True)

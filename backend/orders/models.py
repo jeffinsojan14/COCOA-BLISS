@@ -49,6 +49,7 @@ class Order(models.Model):
     order_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     
     notes = models.TextField(blank=True, null=True)
+    delivery_instructions = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

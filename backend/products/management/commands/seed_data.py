@@ -370,25 +370,41 @@ class Command(BaseCommand):
 
         created_products = []
         for pdata in products_data:
-            p, _ = Product.objects.update_or_create(
-                name=pdata['name'],
-                defaults={
-                    'category': pdata['category'],
-                    'short_description': pdata['short_description'],
-                    'description': pdata['description'],
-                    'ingredients': pdata['ingredients'],
-                    'price': pdata['price'],
-                    'original_price': pdata.get('original_price'),
-                    'weight': pdata['weight'],
-                    'image_url': pdata['image_url'],
-                    'stock_quantity': pdata['stock_quantity'],
-                    'is_available': True,
-                    'is_bestseller': pdata['is_bestseller'],
-                    'is_featured': pdata['is_featured'],
-                    'rating': pdata['rating'],
-                    'review_count': pdata['review_count'],
-                }
-            )
+            existing = Product.objects.filter(name=pdata['name']).first()
+            if existing:
+                # Update catalog metadata but preserve live inventory stock
+                existing.category = pdata['category']
+                existing.short_description = pdata['short_description']
+                existing.description = pdata['description']
+                existing.ingredients = pdata['ingredients']
+                existing.price = pdata['price']
+                existing.original_price = pdata.get('original_price')
+                existing.weight = pdata['weight']
+                existing.image_url = pdata['image_url']
+                existing.is_bestseller = pdata['is_bestseller']
+                existing.is_featured = pdata['is_featured']
+                existing.rating = pdata['rating']
+                existing.review_count = pdata['review_count']
+                existing.save()
+                p = existing
+            else:
+                p = Product.objects.create(
+                    name=pdata['name'],
+                    category=pdata['category'],
+                    short_description=pdata['short_description'],
+                    description=pdata['description'],
+                    ingredients=pdata['ingredients'],
+                    price=pdata['price'],
+                    original_price=pdata.get('original_price'),
+                    weight=pdata['weight'],
+                    image_url=pdata['image_url'],
+                    stock_quantity=pdata['stock_quantity'],
+                    is_available=True,
+                    is_bestseller=pdata['is_bestseller'],
+                    is_featured=pdata['is_featured'],
+                    rating=pdata['rating'],
+                    review_count=pdata['review_count'],
+                )
             created_products.append(p)
 
         self.stdout.write(self.style.SUCCESS(f" Seeded {len(created_products)} chocolate products."))
@@ -452,6 +468,11 @@ class Command(BaseCommand):
                     product_weight_snapshot=almonds.weight, unit_price=almonds.price,
                     quantity=1, subtotal=almonds.price
                 )
+                # Deduct stock for seed order 1
+                assorted.stock_quantity = max(0, assorted.stock_quantity - 1)
+                assorted.save()
+                almonds.stock_quantity = max(0, almonds.stock_quantity - 1)
+                almonds.save()
 
                 # Order 2: Preparing / Confirmed
                 truffles = Product.objects.filter(name='Hazelnut Truffles').first()
@@ -479,6 +500,9 @@ class Command(BaseCommand):
                         product_weight_snapshot=truffles.weight, unit_price=truffles.price,
                         quantity=1, subtotal=truffles.price
                     )
+                    # Deduct stock for seed order 2
+                    truffles.stock_quantity = max(0, truffles.stock_quantity - 1)
+                    truffles.save()
 
                 # Add sample notification
                 Notification.objects.create(

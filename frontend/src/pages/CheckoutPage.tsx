@@ -28,6 +28,7 @@ export const CheckoutPage: React.FC = () => {
     postal_code: '',
     payment_method: 'cod',
     notes: '',
+    delivery_instructions: '',
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -226,14 +227,27 @@ export const CheckoutPage: React.FC = () => {
 
                 <div className="sm:col-span-2 space-y-1">
                   <label className="block text-xs font-semibold text-cocoa-900">
-                    Delivery Instructions / Gift Message (Optional)
+                    Delivery Instructions (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    name="delivery_instructions"
+                    value={formData.delivery_instructions}
+                    onChange={handleChange}
+                    placeholder="e.g. Ring bell, leave with security"
+                    className="w-full px-3.5 py-2.5 bg-cocoa-50/50 border border-cocoa-200 rounded-xl text-xs text-cocoa-950 focus:outline-none focus:border-cocoa-950"
+                  />
+                </div>
+                <div className="sm:col-span-2 space-y-1">
+                  <label className="block text-xs font-semibold text-cocoa-900">
+                    Gift Message / Order Notes (Optional)
                   </label>
                   <input
                     type="text"
                     name="notes"
                     value={formData.notes}
                     onChange={handleChange}
-                    placeholder="e.g. Ring bell, leave with security, or note for gift card"
+                    placeholder="e.g. Add a birthday card message"
                     className="w-full px-3.5 py-2.5 bg-cocoa-50/50 border border-cocoa-200 rounded-xl text-xs text-cocoa-950 focus:outline-none focus:border-cocoa-950"
                   />
                 </div>

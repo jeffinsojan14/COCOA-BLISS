@@ -67,6 +67,8 @@ class Product(models.Model):
         # Update is_available based on stock_quantity
         if self.stock_quantity == 0:
             setattr(self, 'is_available', False)
+        elif self.stock_quantity > 0 and not self.is_available:
+            setattr(self, 'is_available', True)
         super().save(*args, **kwargs)
 
     def get_image(self):

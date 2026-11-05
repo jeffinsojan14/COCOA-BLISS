@@ -128,6 +128,7 @@ export interface Order {
   order_status: 'pending' | 'confirmed' | 'preparing' | 'shipped' | 'delivered' | 'cancelled';
   status_display: string;
   notes?: string;
+  delivery_instructions?: string;
   items: OrderItem[];
   created_at: string;
   updated_at: string;
