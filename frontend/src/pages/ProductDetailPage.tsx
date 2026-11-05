@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
 import {
   Heart,
   AlertCircle,
@@ -22,6 +22,7 @@ import { ProductCard } from '../components/products/ProductCard';
 export const ProductDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const { isAuthenticated } = useAuth();
   const { addToCart } = useCart();
   const { isWishlisted, toggleWishlist } = useWishlist();
@@ -55,7 +56,7 @@ export const ProductDetailPage: React.FC = () => {
       }
     })();
     window.scrollTo(0, 0);
-  }, [id]);
+  }, [id, location.key]);
 
   if (isLoading) {
     return (

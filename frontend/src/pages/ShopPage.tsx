@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
 import { Search, Filter, SlidersHorizontal, X } from 'lucide-react';
 import { Product, Category } from '../types';
 import { productService } from '../services/api';
@@ -7,6 +7,7 @@ import { ProductCard } from '../components/products/ProductCard';
 
 export const ShopPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
 
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -48,7 +49,7 @@ export const ShopPage: React.FC = () => {
       }
     };
     loadData();
-  }, []);
+  }, [location.key]);
 
   // Filtered and Sorted Products
   const filteredProducts = useMemo(() => {
