@@ -2,6 +2,8 @@ from rest_framework import generics, status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.db.models import Q
+from django.views.decorators.cache import never_cache
+from django.utils.decorators import method_decorator
 from .models import Category, Product, Review
 from .serializers import (
     CategorySerializer,
@@ -16,6 +18,7 @@ class CategoryListView(generics.ListAPIView):
     serializer_class = CategorySerializer
     permission_classes = [permissions.AllowAny]
 
+@method_decorator(never_cache, name='dispatch')
 class ProductListView(APIView):
     permission_classes = [permissions.AllowAny]
 
@@ -88,6 +91,7 @@ class ProductListView(APIView):
         serializer = ProductListSerializer(queryset, many=True)
         return Response(serializer.data)
 
+@method_decorator(never_cache, name='dispatch')
 class ProductDetailView(APIView):
     permission_classes = [permissions.AllowAny]
 

@@ -21,11 +21,16 @@ export const api = axios.create({
   },
 });
 
-// Interceptor to attach Auth Token
+// Interceptor to attach Auth Token and prevent browser caching on GET requests
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('cocoa_bliss_token');
   if (token) {
     config.headers.Authorization = `Token ${token}`;
+  }
+  // Prevent stale cached responses for GET requests (critical for stock levels)
+  if (config.method === 'get' || config.method === undefined) {
+    config.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
+    config.headers['Pragma'] = 'no-cache';
   }
   return config;
 });
@@ -83,11 +88,11 @@ export const productService = {
     featured?: boolean;
     sort?: string;
   }): Promise<Product[]> => {
-    const res = await api.get('/products/', { params });
+    const res = await api.get('/products/', { params: { ...params, _t: Date.now() } });
     return res.data;
   },
   getProductDetail: async (idOrSlug: string | number): Promise<{ product: Product; related_products: Product[] }> => {
-    const res = await api.get(`/products/${idOrSlug}/`);
+    const res = await api.get(`/products/${idOrSlug}/`, { params: { _t: Date.now() } });
     return res.data;
   },
   addReview: async (productId: number, data: { rating: number; comment: string }) => {
